@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Helium Dewar Level Predictor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Helium Dewar Level Predictor</h1>
+
+    <!-- Top grid: two Dewars -->
+    <div class="grid">
+      <!-- Dewar A -->
+      <div class="card">
+        <h2>Dewar 9B (tare 136 kg)</h2>
+        <div class="form-group">
+          <label for="currentWeightA">Current Weight (kg)</label>
+          <input type="number" id="currentWeightA" value="140" min="0" step="0.1" />
+        </div>
+        <div class="form-group">
+          <label for="lossPerDayA">Loss Per Day (kg/day)</label>
+          <input type="number" id="lossPerDayA" value="0.20" min="0" step="0.01" />
+        </div>
+        <button class="btn" onclick="calculateBoth()">Calculate</button>
+      </div>
+
+      <!-- Dewar B -->
+      <div class="card">
+        <h2>Dewar 15 (tare 132.1 kg)</h2>
+        <div class="form-group">
+          <label for="currentWeightB">Current Weight (kg)</label>
+          <input type="number" id="currentWeightB" value="140" min="0" step="0.1" />
+        </div>
+        <div class="form-group">
+          <label for="lossPerDayB">Loss Per Day (kg/day)</label>
+          <input type="number" id="lossPerDayB" value="0.20" min="0" step="0.01" />
+        </div>
+        <button class="btn" onclick="calculateBoth()">Calculate</button>
+      </div>
+    </div>
+
+    <!-- Middle grid: statuses -->
+    <div class="grid" style="margin-top: var(--space-20);">
+      <div class="card" id="statusA">
+        <h2>Dewar 9B Status</h2>
+        <div class="level-indicator">
+          <div class="level-fill" id="levelFillA"></div>
+          <div class="level-text" id="levelTextA">--- L</div>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Volume Remaining</span>
+          <span class="result-value" id="volumeRemainingA">--- L</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Days Until 20 L</span>
+          <span class="result-value" id="daysUntil30A">--- days</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Refill Date</span>
+          <span class="result-value" id="refillDateA">---</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Status</span>
+          <span class="result-value" id="levelStatusA">---</span>
+        </div>
+      </div>
+
+      <div class="card" id="statusB">
+        <h2>Dewar 15 Status</h2>
+        <div class="level-indicator">
+          <div class="level-fill" id="levelFillB"></div>
+          <div class="level-text" id="levelTextB">--- L</div>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Volume Remaining</span>
+          <span class="result-value" id="volumeRemainingB">--- L</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Days Until 20 L</span>
+          <span class="result-value" id="daysUntil30B">--- days</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Refill Date</span>
+          <span class="result-value" id="refillDateB">---</span>
+        </div>
+        <div class="result-item">
+          <span class="result-label">Status</span>
+          <span class="result-value" id="levelStatusB">---</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plot below -->
+    <div class="card" style="margin-top: var(--space-20);">
+      <h2>Level Evolution</h2>
+
+      <!-- Fixed-size container for chart -->
+      <div class="chart-wrapper">
+        <canvas id="levelChart"></canvas>
+      </div>
+
+      <div class="info-box">
+        Notes: conversion uses <strong>1 kg = 8 L</strong>. Loss inputs are in <strong>kg/day</strong>. Threshold is <strong>20 L</strong>.
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
